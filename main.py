@@ -11,16 +11,22 @@ def index():
 
 @app.route('/api/telemetry')
 def telemetry():
-    # Simulated position for testing Paisley Junction
-    cur_lat, cur_lon = 55.8450, -4.4305 
+    # Simulation: Near Paisley with a failing signal
+    cur_lat, cur_lon = 55.8450, -4.4305
+    cur_ber = 0.05 
+    cur_block = "10C"
     
+    # 1. Check for Motorway Lane Guidance
     guidance = nav.check_position(cur_lat, cur_lon)
+    
+    # 2. Check for Signal Strength Alerts
+    nav.monitor_signal(cur_ber, cur_block)
     
     return jsonify({
         "status": {"gnss": "green", "sdr": "green"},
         "pos": {"lat": cur_lat, "lon": cur_lon},
         "guidance": guidance,
-        "rf": {"ber": "0.0001", "tii": "36:01"}
+        "rf": {"ber": cur_ber, "block": cur_block, "tii": "36:01"}
     })
 
 if __name__ == "__main__":
