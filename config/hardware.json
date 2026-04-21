@@ -1,0 +1,6 @@
+{
+    "gnss_path": "/dev/ttyUSB0",
+    "sdr_type": "RTL2832U_TCXO",
+    "sample_rate": 2048000,
+    "ppm_error": 0
+}
